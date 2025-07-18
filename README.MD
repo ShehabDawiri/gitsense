@@ -69,6 +69,14 @@ Watch your commit history get transformed into clear, AI-powered summaries!
 
 ---
 
+### 5️⃣ Using CLI Flags for More Control 🎛️
+
+You can pass your Gemini API key directly as a command-line flag instead of using environment variables:
+
+```bash
+gitsummarize --api-key your_gemini_api_key_here
+
+
 ## ⚠️ Troubleshooting & Tips
 
 - ❌ **No API key?** The CLI will remind you to set `GEMINI_API_KEY`.
