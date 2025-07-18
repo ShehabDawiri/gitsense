@@ -4,6 +4,7 @@
 src/
 *.ts
 *.tsx
+*.d.ts
 
 # Config and local dev
 tsconfig.json

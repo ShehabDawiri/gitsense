@@ -1,0 +1,1 @@
+🚀 Added CLI flags support & squashed a bug preventing duplicate user creation! We also refined the app's entry points for better setup. #DevUpdate

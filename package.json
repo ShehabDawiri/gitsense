@@ -1,13 +1,15 @@
 {
-  "name": "gitsummarize",
+  "name": "commitsense",
   "version": "1.0.0",
   "description": "AI-powered Git commit summarizer CLI tool",
   "main": "dist/index.js",
   "bin": {
-    "gitsummarize": "./dist/index.js"
+    "gitsense": "dist/index.js"
   },
   "scripts": {
-    "dev": "nodemon src/index.ts"
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "nodemon"
   },
   "keywords": [
     "git",

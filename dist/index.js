@@ -8,12 +8,14 @@
 import simpleGit from "simple-git";
 import { Command } from "commander";
 import { GoogleGenAI } from "@google/genai";
+import fs from "fs";
 // Load environment variables from .env file
 import { config as loadEnv } from "dotenv";
 loadEnv();
 const program = new Command();
 program
     .option("-k, --api-key <key>", "Google Gemini API key")
+    .option("-f, --format <type>", "Output format: general, release, standup, tweet", "general")
     .parse(process.argv);
 const options = program.opts();
 const apiKey = options.apiKey || process.env.GEMINI_API_KEY;
@@ -22,14 +24,21 @@ if (!apiKey) {
     console.error("API key is required. Please provide it using -k or set GEMINI_API_KEY in .env file.");
     process.exit(1);
 }
+if (!["general", "release", "standup", "tweet"].includes(options.format)) {
+    console.error(`Invalid format "${options.format}". Valid formats are: general, release, standup, tweet.`);
+    process.exit(1);
+}
 const ai = new GoogleGenAI({
     apiKey: apiKey,
 });
 async function getAllCommits(repoPath = ".") {
     const git = simpleGit(repoPath);
     try {
+        const since = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(); // 24h ago
+        const until = new Date().toISOString(); // now
         const log = await git.log({
-            maxCount: 100,
+            "--since": since,
+            "--until": until,
             format: {
                 hash: "%H",
                 author_name: "%an",
@@ -60,15 +69,36 @@ async function getAllCommits(repoPath = ".") {
 async function summarizeCommits(commits) {
     const commitMessages = commits.map((c) => `- ${c.message}`).join("\n");
     console.log("Commit messages to summarize:\n", commitMessages);
-    const prompt = `
-You are a code assistant. Please analyze the following Git commits inorder every commit and and summarize the changes made in a concise manner on its own without any additional information and retrun each commity summary as json itself:
-1. A high-level summary of the changes.
-2. The main features or fixes added.
-3. Any refactorings or improvements.
+    if (commitMessages.length === 0) {
+        console.error("No commit messages to summarize");
+        return;
+    }
+    const prompt = `You are an intelligent and helpful AI assistant specialized in analyzing Git commit messages.
 
-Commits:
-${commitMessages}
-  `;
+Your job is to summarize the recent project activity based on a list of Git commits. Focus on generating clear, useful summaries that could be used in team updates, changelogs, or release notes.
+
+🎯 Goals:
+- Group related commits together (e.g., auth-related changes, UI tweaks)
+- Highlight key progress, new features, bug fixes, or refactors
+- Remove redundant or low-value commits (like "update README", "fix typo")
+- Use natural, developer-friendly language
+
+🎨 Output Styles (depending on format parameter):
+- **general**: A high-level summary of what’s been done
+- **release**: Changelog-style notes (organized by Features, Fixes, Improvements)
+- **standup**: Daily update style (e.g., “Yesterday we..., Today we will...”)
+- **tweet**: One-liner suitable for posting as a short update
+
+📥 Input:
+A list of recent Git commit messages
+
+📤 Output:
+A summarized version in the format requested
+
+Do NOT repeat all commits one by one — your job is to **summarize intelligently**.
+Use the format "${options.format}" for the summary.
+Here are the recent commits:
+${commitMessages}`;
     const response = await ai.models.generateContent({
         model: "gemini-2.5-flash",
         contents: [{ role: "user", parts: [{ text: prompt }] }],
@@ -87,8 +117,12 @@ ${commitMessages}
 async function main() {
     const commits = await getAllCommits();
     if (commits) {
-        const commitsJson = await summarizeCommits(commits);
-        console.log(commitsJson);
+        const summary = await summarizeCommits(commits);
+        if (!summary) {
+            console.error("Failed to summarize commits");
+            return;
+        }
+        fs.writeFileSync("summary.md", summary, "utf-8");
     }
 }
 main();

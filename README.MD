@@ -1,6 +1,6 @@
-# 🚀 gitsummarize — AI-Powered Git Commit Summarizer 🧠✨
+# 🚀 gitsense — AI-Powered Git Commit Summarizer 🧠✨
 
-`gitsummarize` is a CLI tool that reads your Git commit history and uses **Google Gemini** AI to generate clean, easy-to-understand project summaries — perfect for release notes, daily standups, or quick tweet-sized updates!
+`gitsense` is a CLI tool that reads your Git commit history and uses **Google Gemini** AI to generate clean, easy-to-understand project summaries — perfect for release notes, daily standups, or quick tweet-sized updates!
 
 ---
 
@@ -9,7 +9,7 @@
 - 📜 Parses recent Git commits
 - 🤖 Uses Gemini AI to create meaningful summaries
 - 📝 Supports multiple output formats: release notes, tweets, standups
-- 🔧 Simple CLI interface: just run `gitsummarize`
+- 🔧 Simple CLI interface: just run `gitsense`
 - 🔒 Secure API key handling with environment variables
 
 ---
@@ -52,7 +52,7 @@ If you’re working on the CLI locally:
 ```bash
 npm install
 npm run build        # compile TypeScript
-npm link             # makes `gitsummarize` available globally
+npm link             # makes `gitsense` available globally
 ```
 
 ---
@@ -62,7 +62,7 @@ npm link             # makes `gitsummarize` available globally
 Simply run:
 
 ```bash
-gitsummarize
+gitsense
 ```
 
 Watch your commit history get transformed into clear, AI-powered summaries!
@@ -74,7 +74,7 @@ Watch your commit history get transformed into clear, AI-powered summaries!
 You can pass your Gemini API key directly as a command-line flag instead of using environment variables:
 
 ```bash
-gitsummarize --api-key your_gemini_api_key_here
+gitsense --api-key your_gemini_api_key_here
 
 
 ## ⚠️ Troubleshooting & Tips
@@ -94,3 +94,4 @@ Feel free to open issues or PRs — contributions are welcome!
 ## 📄 License
 
 MIT License © Shehab Dawiri
+```

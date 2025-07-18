@@ -9,3 +9,8 @@ export interface Commit {
 export interface Summary {
   summary: string
 }
+
+export type formatType = {
+  name: string
+  instructions: string
+}
