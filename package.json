@@ -1,8 +1,8 @@
 {
-  "name": "gitbreif",
+  "name": "gitsummarize",
   "version": "1.0.0",
   "description": "AI-powered Git commit summarizer CLI tool",
-  "main": "src/index.ts",
+  "main": "dist/index.js",
   "bin": {
     "gitsummarize": "./dist/index.js"
   },
