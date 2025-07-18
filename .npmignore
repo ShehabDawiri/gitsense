@@ -1,0 +1,28 @@
+# .npmignore
+
+# Source files (only dist/ is needed)
+src/
+*.ts
+*.tsx
+
+# Config and local dev
+tsconfig.json
+.env
+.env.local
+node_modules/
+
+# System files
+.DS_Store
+.idea/
+.vscode/
+
+# Git files
+.git
+.gitignore
+
+# Logs
+*.log
+
+# Tests (if you have any)
+__tests__/
+coverage/

@@ -1,0 +1,62 @@
+🚀 gitsummarize — AI-Powered Git Commit Summarizer 🧠✨
+
+gitsummarize is a CLI tool that reads your Git commit history and uses Google Gemini AI to generate clean, easy-to-understand project summaries — perfect for release notes, daily standups, or quick tweet-sized updates!
+⚡ Features
+
+    📜 Parses recent Git commits
+
+    🤖 Uses Gemini AI to create meaningful summaries
+
+    📝 Supports multiple output formats: release notes, tweets, standups
+
+    🔧 Simple CLI interface: just run gitsummarize
+
+    🔒 Secure API key handling with environment variables
+
+🛠️ Getting Started
+1️⃣ Get Your Gemini API Key 🔑
+
+Sign up or log in to the Google Gemini platform and generate your API key.
+2️⃣ Set Your API Key 🔐
+
+Create a .env file in your project root (or wherever you run the CLI) with:
+
+GEMINI_API_KEY=your_gemini_api_key_here
+
+    Important: Never commit your .env file! Add .env to .gitignore to keep your key safe.
+
+Alternatively, you can set the key directly in your shell:
+
+export GEMINI_API_KEY=your_gemini_api_key_here # macOS/Linux
+set GEMINI_API_KEY=your_gemini_api_key_here # Windows CMD
+$Env:GEMINI_API_KEY="your_gemini_api_key_here" # PowerShell
+
+3️⃣ Install & Link Locally (for developers) 🔧
+
+If you’re working on the CLI locally:
+
+npm install
+npm run build # compile TypeScript
+npm link # makes `gitsummarize` available globally
+
+4️⃣ Run the CLI 🚀
+
+Simply run:
+
+gitsummarize
+
+Watch your commit history get transformed into clear, AI-powered summaries!
+⚠️ Troubleshooting & Tips
+
+    ❌ No API key? The CLI will remind you to set GEMINI_API_KEY.
+
+    🛡️ Keep your API key secret! Use environment variables, never hardcode keys.
+
+    💡 Want more control? Future releases may support CLI flags or config files.
+
+❤️ Contributing
+
+Feel free to open issues or PRs — contributions are welcome!
+📄 License
+
+MIT License © Shehab Dawiri

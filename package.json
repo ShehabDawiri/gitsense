@@ -1,21 +1,33 @@
 {
   "name": "gitbreif",
   "version": "1.0.0",
-  "description": "",
+  "description": "AI-powered Git commit summarizer CLI tool",
   "main": "src/index.ts",
+  "bin": {
+    "gitsummarize": "./dist/index.js"
+  },
   "scripts": {
     "dev": "nodemon src/index.ts"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "git",
+    "summarizer",
+    "cli",
+    "gemini"
+  ],
+  "author": "Shehab Dawiri",
+  "license": "MIT",
   "type": "commonjs",
   "dependencies": {
     "@google/genai": "^1.10.0",
     "dotenv": "^17.2.0",
     "nodemon": "^3.1.10",
-    "openai": "^5.10.1",
     "simple-git": "^3.28.0",
     "ts-node": "^10.9.2"
-  }
+  },
+  "files": [
+    "dist/",
+    "README.md",
+    "LICENSE"
+  ]
 }
