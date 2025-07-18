@@ -7,6 +7,7 @@
  */
 
 import simpleGit, { SimpleGit, DefaultLogFields } from "simple-git"
+import { Command } from "commander"
 import { GoogleGenAI } from "@google/genai"
 
 // Load environment variables from .env file
@@ -16,12 +17,25 @@ import { config as loadEnv } from "dotenv"
 import { Commit, Summary } from "./types"
 loadEnv()
 
-// Initialize GoogleGenAI with the API key from environment variables
-if (!process.env.GEMINI_API_KEY) {
-  console.error("GEMINI_API_KEY is not set in the environment variables.")
+const program = new Command()
+
+program
+  .option("-k, --api-key <key>", "Google Gemini API key")
+  .parse(process.argv)
+
+const options = program.opts()
+const apiKey = options.apiKey || process.env.GEMINI_API_KEY
+
+// Check if the API key is provided
+if (!apiKey) {
+  console.error(
+    "API key is required. Please provide it using -k or set GEMINI_API_KEY in .env file."
+  )
   process.exit(1)
 }
-const ai = new GoogleGenAI({})
+const ai = new GoogleGenAI({
+  apiKey: apiKey,
+})
 
 async function getAllCommits(
   repoPath: string = "."
