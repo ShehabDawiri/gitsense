@@ -1,4 +1,4 @@
-# 🚀 gitsense — AI-Powered Git Commit Summarizer 🧠✨
+# 🚀 commitsense — AI-Powered Git Commit Summarizer 🧠✨
 
 `commitsense` is a CLI tool that reads your Git commit history and uses **Google Gemini** AI to generate clean, easy-to-understand project summaries — perfect for release notes, daily standups, or quick tweet-sized updates!
 
